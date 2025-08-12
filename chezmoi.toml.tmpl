@@ -1,0 +1,9 @@
+[git]
+    autoCommit = true
+    autoPush = true
+
+# fast forward before auto update to catch any changes in repo
+[hooks.read-source-state.pre]
+  # Use chezmoi's built-in 'git' wrapper in the source dir:
+  command = "chezmoi"
+  args = ["git", "--", "pull", "--ff-only", "--autostash", "--rebase"]
