@@ -1,0 +1,119 @@
+Host 192.168.241.104
+  HostName 192.168.241.104
+  User test
+  PreferredAuthentications password
+
+Host 192.168.241.105
+  HostName 192.168.241.105
+  User tccadmin
+  PreferredAuthentications password
+
+Host 192.168.241.103
+  HostName 192.168.241.103
+  User tccadmin
+  PreferredAuthentications password
+  
+Host 192.168.241.111
+  HostName 192.168.241.111
+  User tccadmin
+  PreferredAuthentications password
+
+Host 10.10.32.5
+  IdentityFile ~/.ssh/nomad-prod.pub
+  
+Host 10.10.32.9
+  User nomad
+  IdentityFile ~/.ssh/nomad-prod.pub
+Host 10.10.32.10
+  User nomad
+  IdentityFile ~/.ssh/nomad-prod.pub
+Host 10.10.32.11
+  User nomad
+  IdentityFile ~/.ssh/nomad-prod.pub
+Host 10.10.32.7
+  User nomad
+  IdentityFile ~/.ssh/nomad-prod.pub
+Host 10.10.32.8
+  User nomad
+  IdentityFile ~/.ssh/nomad-prod.pub
+
+Host 192.168.241.101
+  HostName 192.168.241.101
+  User admin
+  PreferredAuthentications password
+
+Host srv-cspmk2lumphs73d55u80@ssh.oregon.render.com
+  IdentityFile ~/.ssh/render-jc.pub
+
+Host 10.10.20.9
+  HostName 10.10.20.9
+  User nomad
+  IdentityFile ~/.ssh/nomad-dev.pub
+  
+Host 10.10.20.10
+  HostName 10.10.20.10
+  User nomad
+  IdentityFile ~/.ssh/nomad-dev.pub
+
+Host 10.10.20.8
+  HostName 10.10.20.8
+  User nomad
+  IdentityFile ~/.ssh/nomad-dev.pub
+  
+Host 10.10.20.6
+  HostName 10.10.20.6
+  User nomad
+  IdentityFile ~/.ssh/nomad-dev.pub
+  
+Host 10.10.20.7
+  HostName 10.10.20.7
+  User nomad
+  IdentityFile ~/.ssh/nomad-dev.pub
+  
+Host 10.10.20.4
+  HostName 10.10.20.4
+  User azureuser
+  IdentityFile ~/.ssh/tailscale-dev.pub
+  
+Host 10.10.69.1
+  HostName 10.10.69.1
+  User admin
+  PreferredAuthentications password
+  
+Host pfsense
+  HostName pfsense
+  User admin
+  PreferredAuthentications password
+  
+Host 10.10.69.40
+  HostName 10.10.69.40
+  User root
+  PreferredAuthentications password
+  
+Host jcserv
+  HostName jcserv
+  User root
+  PreferredAuthentications password
+  
+Host 10.10.69.25
+  HostName 10.10.69.25
+  User admin
+  PreferredAuthentications password
+  
+Host 10.10.69.3
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostName 10.10.69.3
+  User super
+  PreferredAuthentications password
+  
+Host 10.10.69.4
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostName 10.10.69.4
+  User super
+  PreferredAuthentications password
+  
+Host 10.10.69.5
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostName 10.10.69.5
+  User super
+  PreferredAuthentications password
