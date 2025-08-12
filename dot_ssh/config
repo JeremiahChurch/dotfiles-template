@@ -78,27 +78,35 @@ Host 10.10.20.4
 Host 10.10.69.1
   HostName 10.10.69.1
   User admin
-  PreferredAuthentications password
+  PreferredAuthentications publickey
   
 Host pfsense
   HostName pfsense
   User admin
-  PreferredAuthentications password
+  PreferredAuthentications publickey
   
 Host 10.10.69.40
   HostName 10.10.69.40
   User root
-  PreferredAuthentications password
+  PreferredAuthentications publickey
   
 Host jcserv
   HostName jcserv
   User root
-  PreferredAuthentications password
+  PreferredAuthentications publickey
   
 Host 10.10.69.25
   HostName 10.10.69.25
   User admin
-  PreferredAuthentications password
+  PreferredAuthentications publickey
+  #IdentityAgent ~/.1password/agent.sock
+
+Host 192.168.244.1
+  HostName 192.168.244.1
+  User admin
+  PreferredAuthentications publickey  
+  #IdentityAgent ~/.1password/agent.sock
+  
   
 Host 10.10.69.3
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
@@ -116,4 +124,31 @@ Host 10.10.69.5
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostName 10.10.69.5
   User super
+  PreferredAuthentications password
+  
+Host 10.10.69.79
+  HostName 10.10.69.79
+  User jchurch
+  PreferredAuthentications publickey
+
+Host aircompressor
+  HostName aircompressor
+  User jchurch
+  PreferredAuthentications publickey
+  
+Host 10.10.67.45
+  HostName 10.10.67.45
+  User root
+  PreferredAuthentications publickey
+
+Host 10.10.69.2
+  Ciphers +aes128-cbc,aes256-cbc
+  HostName 10.10.69.2
+  User admin
+  PreferredAuthentications password
+  
+Host 10.10.69.10
+  Ciphers +aes128-cbc,aes256-cbc
+  HostName 10.10.69.10
+  User admin
   PreferredAuthentications password
