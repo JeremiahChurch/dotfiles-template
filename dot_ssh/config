@@ -149,6 +149,63 @@ Host 10.10.69.2
   
 Host 10.10.69.10
   Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
   HostName 10.10.69.10
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.11
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.11
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.12
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.12
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.13
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.13
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.14
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.14
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.15
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.15
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.16
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.16
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.17
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.17
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.9
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.9
   User admin
   PreferredAuthentications password
