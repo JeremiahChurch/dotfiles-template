@@ -203,6 +203,20 @@ Host 10.10.69.17
   User admin
   PreferredAuthentications password
 
+Host 10.10.69.18
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.18
+  User admin
+  PreferredAuthentications password
+
+Host 10.10.69.19
+  Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  HostName 10.10.69.19
+  User admin
+  PreferredAuthentications password
+
 Host 10.10.69.9
   Ciphers +aes128-cbc,aes256-cbc
   HostKeyAlgorithms +ssh-rsa
