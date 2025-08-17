@@ -122,9 +122,12 @@ Host 10.10.69.4
   
 Host 10.10.69.5
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  MACs +hmac-sha1
   HostName 10.10.69.5
   User super
-  PreferredAuthentications password
+  PreferredAuthentications publickey
   
 Host 10.10.69.79
   HostName 10.10.69.79
@@ -143,6 +146,8 @@ Host 10.10.67.45
 
 Host 10.10.69.2
   Ciphers +aes128-cbc,aes256-cbc
+  HostKeyAlgorithms +ssh-rsa
+  MACs +hmac-sha1
   HostName 10.10.69.2
   User admin
   PreferredAuthentications password
