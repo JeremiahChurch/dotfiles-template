@@ -138,6 +138,16 @@ Host 10.10.69.5
   User super
   PreferredAuthentications publickey
   
+Host switchty
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  MACs +hmac-sha1
+  HostName switchy
+  User super
+  PreferredAuthentications publickey
+  
+
 Host 10.10.69.79
   HostName 10.10.69.79
   User jchurch
