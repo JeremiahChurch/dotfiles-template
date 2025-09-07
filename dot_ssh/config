@@ -160,7 +160,8 @@ Host aircompressor
   
 Host 10.10.67.45
   HostName 10.10.67.45
-  User root
+  User hassio
+  MACs hmac-sha2-512-etm@openssh.com
   PreferredAuthentications publickey
 
 Host 10.10.69.2
