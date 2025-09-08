@@ -79,21 +79,25 @@ Host 10.10.69.1
   HostName 10.10.69.1
   User admin
   PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal.pub
   
 Host pfsense
   HostName pfsense
   User admin
   PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal.pub
   
 Host 10.10.69.40
   HostName 10.10.69.40
   User root
   PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal.pub
   
 Host jcserv
   HostName jcserv
   User root
   PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal.pub
   
 Host 10.10.69.25
   HostName 10.10.69.25
@@ -109,45 +113,42 @@ Host 192.168.244.1
   
   
 Host 10.10.69.3
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostName 10.10.69.3
   User super
-  PreferredAuthentications password
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  MACs +hmac-sha1
+  PreferredAuthentications publickey
   
 Host 10.10.69.4
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostName 10.10.69.4
   User super
-  PreferredAuthentications password
-  
-Host switchy
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostKeyAlgorithms +ssh-rsa
   PubkeyAcceptedAlgorithms +ssh-rsa
   MACs +hmac-sha1
-  HostName switchy
-  User super
   PreferredAuthentications publickey
-
+  
 Host 10.10.69.5
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
-  HostKeyAlgorithms +ssh-rsa
-  PubkeyAcceptedAlgorithms +ssh-rsa
-  MACs +hmac-sha1
   HostName 10.10.69.5
   User super
-  PreferredAuthentications publickey
-  
-Host switchty
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostKeyAlgorithms +ssh-rsa
   PubkeyAcceptedAlgorithms +ssh-rsa
   MACs +hmac-sha1
-  HostName switchy
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal-old.pub
+
+Host 10.10.69.6
+  HostName 10.10.69.6
   User super
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  MACs +hmac-sha1
   PreferredAuthentications publickey
   
-
 Host 10.10.69.79
   HostName 10.10.69.79
   User jchurch
@@ -160,9 +161,9 @@ Host aircompressor
   
 Host 10.10.67.45
   HostName 10.10.67.45
-  User hassio
-  MACs hmac-sha2-512-etm@openssh.com
+  User root
   PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal.pub
 
 Host 10.10.69.2
   Ciphers +aes128-cbc,aes256-cbc
