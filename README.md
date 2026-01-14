@@ -4,7 +4,9 @@ https://www.chezmoi.io/
 
 `chezmoi apply`
 
-`chezmoi update`
+`chezmoi update` when you want to pull from remote
+
+`chezmoi add ~/.ssh/config` when you make a local change
 
 ## setup new machine
 
