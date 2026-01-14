@@ -86,7 +86,7 @@ Host pfsense
   User admin
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
-  
+
 Host 10.10.69.40
   HostName 10.10.69.40
   User root
@@ -139,6 +139,16 @@ Host 10.10.69.5
   MACs +hmac-sha1
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal-old.pub
+  
+Host switchy
+  HostName switchy
+  User super
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  HostKeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
+  MACs +hmac-sha1
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/jc-personal-old.pub
 
 Host 10.10.69.6
   HostName 10.10.69.6
@@ -149,8 +159,8 @@ Host 10.10.69.6
   MACs +hmac-sha1
   PreferredAuthentications publickey
   
-Host 10.10.69.79
-  HostName 10.10.69.79
+Host 10.10.67.79
+  HostName 10.10.67.79
   User jchurch
   PreferredAuthentications publickey
 
@@ -161,7 +171,8 @@ Host aircompressor
   
 Host 10.10.67.45
   HostName 10.10.67.45
-  User root
+  User hassio
+  Macs hmac-sha2-512-etm@openssh.com
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
 
