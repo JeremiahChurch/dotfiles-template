@@ -42,12 +42,14 @@ Host 10.10.20.4
 
 ##### Personal key (jc-personal) - common infra
 Host router pfsense 10.10.69.1
+  HostName pfsense.home.jeremiah.church
   User admin
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
 
 # Unraid
 Host unraid jcserv 10.10.69.40
+  HostName 10.10.69.40
   User root
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
@@ -55,6 +57,7 @@ Host unraid jcserv 10.10.69.40
 
 ##### Publickey but agent commented (left as-is)
 Host tcc-router 10.10.69.25
+  HostName 10.10.69.25
   User admin
   PreferredAuthentications publickey
   #IdentityAgent ~/.1password/agent.sock
@@ -95,6 +98,7 @@ Host lr tv livingroomtv 10.10.69.78 10.10.67.78
 
 # HA == 10.10.67.45
 Host ha homeassistant 10.10.67.45
+  HostName 10.10.67.45
   User hassio
   Macs hmac-sha2-512-etm@openssh.com
   PreferredAuthentications publickey
