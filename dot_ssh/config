@@ -1,147 +1,83 @@
+##### Defaults (optional but nice)
+Host *
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+  TCPKeepAlive yes
+
+
+##### Password-auth lab / 192.168.241.x
+Host 192.168.241.101
+  User admin
+  PreferredAuthentications password
+
+Host 192.168.241.103 192.168.241.105 192.168.241.111
+  User tccadmin
+  PreferredAuthentications password
+
 Host 192.168.241.104
-  HostName 192.168.241.104
   User test
   PreferredAuthentications password
 
-Host 192.168.241.105
-  HostName 192.168.241.105
-  User tccadmin
-  PreferredAuthentications password
 
-Host 192.168.241.103
-  HostName 192.168.241.103
-  User tccadmin
-  PreferredAuthentications password
-  
-Host 192.168.241.111
-  HostName 192.168.241.111
-  User tccadmin
-  PreferredAuthentications password
-
+##### Nomad - prod (10.10.32.x)
 Host 10.10.32.5
   IdentityFile ~/.ssh/nomad-prod.pub
-  
-Host 10.10.32.9
-  User nomad
-  IdentityFile ~/.ssh/nomad-prod.pub
-Host 10.10.32.10
-  User nomad
-  IdentityFile ~/.ssh/nomad-prod.pub
-Host 10.10.32.11
-  User nomad
-  IdentityFile ~/.ssh/nomad-prod.pub
-Host 10.10.32.7
-  User nomad
-  IdentityFile ~/.ssh/nomad-prod.pub
-Host 10.10.32.8
+
+Host 10.10.32.7 10.10.32.8 10.10.32.9 10.10.32.10 10.10.32.11
   User nomad
   IdentityFile ~/.ssh/nomad-prod.pub
 
-Host 192.168.241.101
-  HostName 192.168.241.101
-  User admin
-  PreferredAuthentications password
 
+##### Render
 Host srv-cspmk2lumphs73d55u80@ssh.oregon.render.com
   IdentityFile ~/.ssh/render-jc.pub
 
-Host 10.10.20.9
-  HostName 10.10.20.9
-  User nomad
-  IdentityFile ~/.ssh/nomad-dev.pub
-  
-Host 10.10.20.10
-  HostName 10.10.20.10
+
+##### Nomad - dev (10.10.20.x)
+Host 10.10.20.6 10.10.20.7 10.10.20.8 10.10.20.9 10.10.20.10
   User nomad
   IdentityFile ~/.ssh/nomad-dev.pub
 
-Host 10.10.20.8
-  HostName 10.10.20.8
-  User nomad
-  IdentityFile ~/.ssh/nomad-dev.pub
-  
-Host 10.10.20.6
-  HostName 10.10.20.6
-  User nomad
-  IdentityFile ~/.ssh/nomad-dev.pub
-  
-Host 10.10.20.7
-  HostName 10.10.20.7
-  User nomad
-  IdentityFile ~/.ssh/nomad-dev.pub
-  
 Host 10.10.20.4
-  HostName 10.10.20.4
   User azureuser
   IdentityFile ~/.ssh/tailscale-dev.pub
-  
-Host 10.10.69.1
-  HostName 10.10.69.1
-  User admin
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/jc-personal.pub
-  
-Host pfsense
-  HostName pfsense
+
+
+##### Personal key (jc-personal) - common infra
+Host pfsense 10.10.69.1
   User admin
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
 
-Host 10.10.69.40
-  HostName 10.10.69.40
+# Unraid == jcserv == 10.10.69.40
+Host unraid jcserv 10.10.69.40
   User root
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
-  
-Host jcserv
-  HostName jcserv
-  User root
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/jc-personal.pub
-  
+
+
+##### Publickey but agent commented (left as-is)
 Host 10.10.69.25
-  HostName 10.10.69.25
   User admin
   PreferredAuthentications publickey
   #IdentityAgent ~/.1password/agent.sock
 
 Host 192.168.244.1
-  HostName 192.168.244.1
   User admin
-  PreferredAuthentications publickey  
+  PreferredAuthentications publickey
   #IdentityAgent ~/.1password/agent.sock
-  
-  
-Host 10.10.69.3
-  HostName 10.10.69.3
+
+
+##### Brocade-ish legacy SSH knobs (10.10.69.3-6 + switchy)
+Host 10.10.69.3 10.10.69.4 10.10.69.6
   User super
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostKeyAlgorithms +ssh-rsa
   PubkeyAcceptedAlgorithms +ssh-rsa
   MACs +hmac-sha1
   PreferredAuthentications publickey
-  
-Host 10.10.69.4
-  HostName 10.10.69.4
-  User super
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
-  HostKeyAlgorithms +ssh-rsa
-  PubkeyAcceptedAlgorithms +ssh-rsa
-  MACs +hmac-sha1
-  PreferredAuthentications publickey
-  
-Host 10.10.69.5
-  HostName 10.10.69.5
-  User super
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
-  HostKeyAlgorithms +ssh-rsa
-  PubkeyAcceptedAlgorithms +ssh-rsa
-  MACs +hmac-sha1
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/jc-personal-old.pub
-  
-Host switchy
-  HostName switchy
+
+Host 10.10.69.5 switchy
   User super
   KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
   HostKeyAlgorithms +ssh-rsa
@@ -150,113 +86,24 @@ Host switchy
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal-old.pub
 
-Host 10.10.69.6
-  HostName 10.10.69.6
-  User super
-  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
-  HostKeyAlgorithms +ssh-rsa
-  PubkeyAcceptedAlgorithms +ssh-rsa
-  MACs +hmac-sha1
-  PreferredAuthentications publickey
-  
-Host 10.10.67.79
-  HostName 10.10.67.79
+
+##### IoT / misc
+Host aircompressor 10.10.67.79
   User jchurch
   PreferredAuthentications publickey
 
-Host aircompressor
-  HostName aircompressor
-  User jchurch
-  PreferredAuthentications publickey
-  
-Host 10.10.67.45
-  HostName 10.10.67.45
+# HA == 10.10.67.45
+Host ha 10.10.67.45
   User hassio
   Macs hmac-sha2-512-etm@openssh.com
   PreferredAuthentications publickey
   IdentityFile ~/.ssh/jc-personal.pub
 
-Host 10.10.69.2
+
+##### Old/legacy password devices with weak ciphers (10.10.69.2, 9-19, etc.)
+Host 10.10.69.2 10.10.69.9 10.10.69.10 10.10.69.11 10.10.69.12 10.10.69.13 10.10.69.14 10.10.69.15 10.10.69.16 10.10.69.17 10.10.69.18 10.10.69.19
+  User admin
+  PreferredAuthentications password
   Ciphers +aes128-cbc,aes256-cbc
   HostKeyAlgorithms +ssh-rsa
   MACs +hmac-sha1
-  HostName 10.10.69.2
-  User admin
-  PreferredAuthentications password
-  
-Host 10.10.69.10
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.10
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.11
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.11
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.12
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.12
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.13
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.13
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.14
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.14
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.15
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.15
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.16
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.16
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.17
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.17
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.18
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.18
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.19
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.19
-  User admin
-  PreferredAuthentications password
-
-Host 10.10.69.9
-  Ciphers +aes128-cbc,aes256-cbc
-  HostKeyAlgorithms +ssh-rsa
-  HostName 10.10.69.9
-  User admin
-  PreferredAuthentications password
