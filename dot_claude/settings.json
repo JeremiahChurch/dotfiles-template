@@ -1,0 +1,25 @@
+{
+  "model": "opus",
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -ExecutionPolicy Bypass -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code','Permission needed - a tool is waiting for approval'\""
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -ExecutionPolicy Bypass -Command \"Import-Module BurntToast; New-BurntToastNotification -Text 'Claude Code','Task complete - waiting for your input'\""
+          }
+        ]
+      }
+    ]
+  }
+}
