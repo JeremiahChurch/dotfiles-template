@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "linux" }}
+# WSL/Linux: skip Windows-specific paths
+AppData/**
+.ssh/**
+{{ end }}
+{{ if eq .chezmoi.os "windows" }}
+# Windows: skip Linux-specific paths
+.bashrc
+{{ end }}

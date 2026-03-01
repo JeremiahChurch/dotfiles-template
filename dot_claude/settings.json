@@ -1,5 +1,27 @@
 {
   "model": "opus",
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(do echo:*)",
+      "Bash(docker ps:*)",
+      "Bash(gem:*)",
+      "Bash(gh:*)",
+      "Bash(git:*)",
+      "Bash(nmap.exe:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(ping:*)",
+      "Bash(python:*)",
+      "Bash(python -m pip:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:maclookup.app)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch"
+    ],
+    "defaultMode": "acceptEdits"
+  },
   "hooks": {
     "Notification": [
       {
