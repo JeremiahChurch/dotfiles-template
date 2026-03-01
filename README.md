@@ -10,59 +10,92 @@ https://www.chezmoi.io/
 
 ## What's managed
 
+### Both platforms
+
+| File | Purpose |
+|------|---------|
+| `.claude/settings.json` | Claude Code account-level permissions, model pref, notification hooks |
+
+### Windows only
+
 | File | Purpose |
 |------|---------|
 | `.ssh/config` + public keys | SSH config and keys for 1Password agent |
 | `AppData/Local/1Password/config/ssh/agent.toml` | 1Password SSH agent config |
-| `.claude/settings.json` | Claude Code settings (model, BurntToast notification hooks) |
 | `AppData/Roaming/FileZilla/sitemanager.xml` | FileZilla saved sites |
+| `install-burnttoast.cmd` (run_once) | Installs BurntToast PowerShell module |
 
-### run_once scripts
+### WSL/Linux only
 
-| Script | Purpose |
-|--------|---------|
-| `run_once_install-burnttoast.ps1` | Installs BurntToast PowerShell module (requires admin) |
+| File | Purpose |
+|------|---------|
+| `.bashrc` | Canonical bash config — sources `.bashrc.local`, runs `chezmoi update` on startup |
+
+### NOT managed (manual per machine)
+
+| File | Purpose | Why not |
+|------|---------|---------|
+| `.bashrc.local` | HASS_TOKEN, SSH aliases, machine-specific env | Contains secrets |
 
 ## Setup new machine
 
-### 1. Install chezmoi
-
-Windows: `winget install twpayne.chezmoi`
-Anywhere else: `sh -c "$(curl -fsLS get.chezmoi.io)"`
-
-### 2. Init and apply
+### Windows
 
 ```
+winget install twpayne.chezmoi
 chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 ```
 
-The `run_once_install-burnttoast.ps1` script runs automatically on first apply.
-If it fails (needs admin), run manually in an elevated PowerShell:
-```powershell
-Install-Module -Name BurntToast -Repository PSGallery -Force -Scope AllUsers
+The `run_once_install-burnttoast.cmd` script runs automatically on first apply.
+
+### WSL (on the same machine, or a Linux-only box)
+
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 ```
 
-### 3. WSL setup (manual steps)
+This installs:
+- `~/.bashrc` with `chezmoi update` auto-sync on shell startup
+- `~/.claude/settings.json` with account-level Claude Code settings
 
-These live in WSL and aren't managed by chezmoi (Windows-side only):
-
-**Symlink Claude settings from Windows into WSL:**
+Then create `~/.bashrc.local` manually with machine-specific config:
 ```bash
-mkdir -p ~/.claude
-ln -sf /mnt/c/Users/$(powershell.exe -Command '$env:USERNAME' | tr -d '\r')/.claude/settings.json ~/.claude/settings.json
-```
-
-**Add to `~/.bashrc` (aliases for 1Password SSH agent via Windows OpenSSH):**
-```bash
-# 1pass CLI WSL integration
+cat > ~/.bashrc.local << 'EOF'
+# 1Password SSH agent via Windows OpenSSH
 alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
+
+# HA
+export HASS_SERVER="https://ha.jeremiah.church"
+export HASS_TOKEN="<token from 1Password or HA>"
+EOF
 ```
 
-**Optional: auto-sync chezmoi on shell start (add to `~/.bashrc`):**
+## Update existing machines
+
+For machines that already have Windows chezmoi but no WSL chezmoi:
+
 ```bash
-# Keep chezmoi dotfiles in sync on shell start
-chezmoi.exe apply --no-tty 2>/dev/null &
+# 1. Update Windows chezmoi first (picks up new .chezmoiignore, etc.)
+chezmoi.exe update
+
+# 2. Install chezmoi in WSL
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+
+# 3. Init WSL chezmoi from the same dotfiles repo
+chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
+```
+
+After this, `.bashrc` includes the auto-update hook — future changes
+to the dotfiles repo are applied automatically on every new shell.
+
+For machines that already have both Windows and WSL chezmoi:
+
+```bash
+# Just update — pulls latest and applies
+chezmoi update          # in WSL
+chezmoi.exe update      # on Windows side
 ```
 
 ## Sync behavior
@@ -73,14 +106,18 @@ Configured in `chezmoi.toml`:
 - **pre-hook**: `git pull --ff-only` runs before reading source state
 
 This means: changes made on any machine are pushed immediately, and any machine
-that runs `chezmoi apply` (or opens a WSL shell with the auto-sync line) pulls
-the latest first.
+that runs `chezmoi update` (or opens a new WSL shell) pulls the latest first.
 
-## What doesn't belong in run_once
+## Claude Code settings architecture
 
-Keep `run_once_` scripts for simple, idempotent installs (like BurntToast).
-Put these in the README instead:
-- Anything requiring interactive decisions or manual verification
-- Complex multi-step processes with conditional logic
-- One-time configuration that varies per machine (IP addresses, hostnames)
-- WSL-side setup (chezmoi runs on Windows, can't reliably reach into WSL)
+Permissions are split across three levels:
+
+| Level | File | Synced via |
+|-------|------|-----------|
+| Account | `~/.claude/settings.json` | chezmoi (this repo) |
+| Project (shared) | `<project>/.claude/settings.json` | project git repo |
+| Project (local) | `<project>/.claude/settings.local.json` | not synced (gitignored) |
+
+Account settings contain general dev tools (git, gh, npm, python, etc.).
+Project settings contain project-specific approvals (MCP tools, SSH, domains).
+Local settings contain machine-specific overrides (Windows paths, etc.).
