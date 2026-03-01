@@ -2,7 +2,8 @@
 # WSL/Linux: skip Windows-specific paths
 AppData/**
 .ssh/**
-run_once_install-burnttoast.cmd
+install-burnttoast.cmd
+README.md
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
 # Windows: skip Linux-specific paths
