@@ -126,7 +126,11 @@ if [ -f ~/.bashrc.local ]; then
     . ~/.bashrc.local
 fi
 
-# Sync dotfiles on interactive shell startup (background, silent)
+# Sync dotfiles on interactive shell startup (synchronous to avoid input corruption)
 if command -v chezmoi &> /dev/null; then
-    chezmoi update --apply &>/dev/null &
+    timeout 5 chezmoi re-add &>/dev/null
+    timeout 5 chezmoi git -- add -A &>/dev/null
+    timeout 5 chezmoi git -- commit -m "auto-sync from $(hostname)" &>/dev/null
+    timeout 5 chezmoi git -- push &>/dev/null
+    timeout 5 chezmoi update --apply &>/dev/null
 fi
