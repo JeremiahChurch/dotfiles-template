@@ -128,9 +128,11 @@ fi
 
 # Sync dotfiles on interactive shell startup (synchronous to avoid input corruption)
 if command -v chezmoi &> /dev/null; then
+    printf '\033[0;90mchezmoi: syncing dotfiles...\033[0m'
     timeout 5 chezmoi re-add &>/dev/null
     timeout 5 chezmoi git -- add -A &>/dev/null
     timeout 5 chezmoi git -- commit -m "auto-sync from $(hostname)" &>/dev/null
     timeout 5 chezmoi git -- push &>/dev/null
     timeout 5 chezmoi update --apply &>/dev/null
+    printf '\r\033[K'
 fi
