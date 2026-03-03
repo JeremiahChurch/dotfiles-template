@@ -3,9 +3,11 @@
 AppData/**
 .ssh/**
 install-burnttoast.cmd
+install-gh.cmd
 README.md
 {{ end }}
 {{ if eq .chezmoi.os "windows" }}
 # Windows: skip Linux-specific paths
 .bashrc
+install-gh.sh
 {{ end }}

@@ -24,12 +24,14 @@ https://www.chezmoi.io/
 | `AppData/Local/1Password/config/ssh/agent.toml` | 1Password SSH agent config |
 | `AppData/Roaming/FileZilla/sitemanager.xml` | FileZilla saved sites |
 | `install-burnttoast.cmd` (run_once) | Installs BurntToast PowerShell module |
+| `install-gh.cmd` (run_once) | Installs GitHub CLI via winget + prompts `gh auth login` |
 
 ### WSL/Linux only
 
 | File | Purpose |
 |------|---------|
 | `.bashrc` | Canonical bash config — sources `.bashrc.local`, runs `chezmoi update` on startup |
+| `install-gh.sh` (run_once) | Installs GitHub CLI via apt + configures git credential helper + prompts `gh auth login` |
 
 ### NOT managed (manual per machine)
 
@@ -46,7 +48,9 @@ winget install twpayne.chezmoi
 chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 ```
 
-The `run_once_install-burnttoast.cmd` script runs automatically on first apply.
+The run_once scripts run automatically on first apply:
+- `install-burnttoast.cmd` — installs BurntToast PowerShell module
+- `install-gh.cmd` — installs GitHub CLI and prompts for `gh auth login`
 
 ### WSL (on the same machine, or a Linux-only box)
 
@@ -58,6 +62,8 @@ chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 This installs:
 - `~/.bashrc` with `chezmoi update` auto-sync on shell startup
 - `~/.claude/settings.json` with account-level Claude Code settings
+- GitHub CLI (`gh`) with git credential helper configured
+- Prompts for `gh auth login` so chezmoi auto-push works immediately
 
 Then create `~/.bashrc.local` manually with machine-specific config:
 ```bash
