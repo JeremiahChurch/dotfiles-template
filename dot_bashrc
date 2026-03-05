@@ -139,8 +139,8 @@ fi
 
 # Check for expected tools and tell the user how to install them
 if ! command -v gh &>/dev/null; then
-    printf '\033[0;33m[!] GitHub CLI (gh) is not installed. Run: install-gh\033[0m\n'
+    printf '\033[0;33m[!] GitHub CLI (gh) is not installed. Run: bash ~/.local/bin/install-gh\033[0m\n'
 fi
 if ! command -v devcontainer &>/dev/null; then
-    printf '\033[0;33m[!] Devcontainer CLI is not installed. Run: install-devcontainer\033[0m\n'
+    printf '\033[0;33m[!] Devcontainer CLI is not installed. Run: bash ~/.local/bin/install-devcontainer\033[0m\n'
 fi
