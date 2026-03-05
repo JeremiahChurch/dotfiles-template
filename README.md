@@ -31,8 +31,8 @@ https://www.chezmoi.io/
 | File | Purpose |
 |------|---------|
 | `.bashrc` | Canonical bash config — sources `.bashrc.local`, runs `chezmoi update` on startup |
-| `install-gh.sh` (run_once) | Installs GitHub CLI via apt + configures git credential helper + prompts `gh auth login` |
-| `install-devcontainer.sh` (run_once) | Installs devcontainer CLI via npm |
+| `~/.local/bin/install-gh` | Installs GitHub CLI + configures git credential helper + `gh auth login` |
+| `~/.local/bin/install-devcontainer` | Installs devcontainer CLI via npm |
 
 ### NOT managed (manual per machine)
 
@@ -63,9 +63,14 @@ chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 This installs:
 - `~/.bashrc` with `chezmoi update` auto-sync on shell startup
 - `~/.claude/settings.json` with account-level Claude Code settings
-- GitHub CLI (`gh`) with git credential helper configured
-- Prompts for `gh auth login` so chezmoi auto-push works immediately
-- Devcontainer CLI (`devcontainer`) for building/running dev containers
+- Install scripts in `~/.local/bin/` (on PATH)
+
+On first login, `.bashrc` will warn about any missing tools. Run the
+suggested install commands interactively:
+```bash
+install-gh            # GitHub CLI + git credential helper + gh auth login
+install-devcontainer  # devcontainer CLI via npm
+```
 
 Then create `~/.bashrc.local` manually with machine-specific config:
 ```bash
