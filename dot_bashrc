@@ -144,3 +144,11 @@ fi
 if ! command -v devcontainer &>/dev/null; then
     printf '\033[0;33m[!] Devcontainer CLI is not installed. Run: bash ~/.local/bin/install-devcontainer\033[0m\n'
 fi
+if ! command -v dockerd &>/dev/null; then
+    if command -v docker.exe &>/dev/null || [ -d "/mnt/c/Program Files/Docker" ]; then
+        printf '\033[0;33m[!] Docker Desktop detected but native Docker Engine is not installed.\033[0m\n'
+        printf '\033[0;33m    Run: bash ~/.local/bin/install-docker\033[0m\n'
+    else
+        printf '\033[0;33m[!] Docker is not installed. Run: bash ~/.local/bin/install-docker\033[0m\n'
+    fi
+fi
