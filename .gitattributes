@@ -1,5 +1,7 @@
-# Normalize all text files to LF on checkout
-* text=auto eol=lf
+# Force LF everywhere — repo storage AND working tree on all platforms.
+# Without this, Windows git (core.autocrlf=true) converts LF→CRLF on
+# checkout, which breaks shell scripts and configs used in WSL/Linux.
+* text eol=lf
 
 # Windows batch/script files need CRLF
 *.cmd text eol=crlf
