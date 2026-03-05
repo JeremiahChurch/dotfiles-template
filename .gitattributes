@@ -1,5 +1,7 @@
 # Normalize all text files to LF on checkout
 * text=auto eol=lf
 
-# Windows batch files need CRLF
+# Windows batch/script files need CRLF
 *.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
