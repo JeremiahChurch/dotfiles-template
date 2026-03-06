@@ -133,6 +133,22 @@ if command -v chezmoi &> /dev/null; then
     timeout 5 chezmoi git -- add -A &>/dev/null
     timeout 5 chezmoi git -- commit -m "auto-sync from $(hostname)" &>/dev/null
     timeout 5 chezmoi git -- push &>/dev/null
-    timeout 5 chezmoi update --apply &>/dev/null
+    timeout 5 chezmoi update --exclude=scripts --apply &>/dev/null
     printf '\r\033[K'
+fi
+
+# Check for expected tools and tell the user how to install them
+if ! command -v gh &>/dev/null; then
+    printf '\033[0;33m[!] GitHub CLI (gh) is not installed. Run: install-gh\033[0m\n'
+fi
+if ! command -v devcontainer &>/dev/null; then
+    printf '\033[0;33m[!] Devcontainer CLI is not installed. Run: install-devcontainer\033[0m\n'
+fi
+if ! command -v dockerd &>/dev/null; then
+    if command -v docker.exe &>/dev/null || [ -d "/mnt/c/Program Files/Docker" ]; then
+        printf '\033[0;33m[!] Docker Desktop detected but native Docker Engine is not installed.\033[0m\n'
+        printf '\033[0;33m    Run: install-docker\033[0m\n'
+    else
+        printf '\033[0;33m[!] Docker is not installed. Run: install-docker\033[0m\n'
+    fi
 fi
