@@ -59,7 +59,7 @@
       "WebFetch(domain:github.com)",
       "WebFetch(domain:maclookup.app)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Read(/mnt/c/Users/jerem/Pictures/Screenpresso/*)",
+      "Read(///mnt/c/Users/jerem/Pictures/Screenpresso/*)",
       "WebSearch"
     ],
     "defaultMode": "acceptEdits"
