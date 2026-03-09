@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 0fb31a3f83c71073dca246c079a191949c9cb64e Jeremiah Church <jeremiahchurch@gmail.com> 1772988955 -0400	commit (initial): Initial release: WSL interop skill for Claude Code
+0fb31a3f83c71073dca246c079a191949c9cb64e a6f9e44dfd9a5b37dd9fd2a8e20a9749e3cc68e3 Jeremiah Church <jeremiahchurch@gmail.com> 1772989687 -0400	commit: Add plugin packaging and expanded install instructions
+a6f9e44dfd9a5b37dd9fd2a8e20a9749e3cc68e3 6da914e01e889a33c50030a90eab91425e66bfa7 Jeremiah Church <jeremiahchurch@gmail.com> 1772996108 -0400	commit: Add clickable file links and URL formatting guidance
+6da914e01e889a33c50030a90eab91425e66bfa7 08fb1a60cbd592bd850d87a2df88c72df0184e45 Jeremiah Church <jeremiahchurch@gmail.com> 1772996263 -0400	commit: Fix: use bare file URIs instead of markdown link syntax
+08fb1a60cbd592bd850d87a2df88c72df0184e45 06efd38b58b632f5388a469b1d32509acfb1d632 Jeremiah Church <jeremiahchurch@gmail.com> 1772997029 -0400	commit: Add cmd.exe open pattern for Windows drive paths
+06efd38b58b632f5388a469b1d32509acfb1d632 7b05c79d97a944835587fc3592e6bd25171dd2e0 Jeremiah Church <jeremiahchurch@gmail.com> 1772998558 -0400	commit: Document CLAUDE.md directive requirement and add trigger evals
