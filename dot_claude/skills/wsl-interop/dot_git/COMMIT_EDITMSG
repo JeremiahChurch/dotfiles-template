@@ -1,9 +1,0 @@
-Document CLAUDE.md directive requirement and add trigger evals
-
-Skill auto-triggering scored 0% recall across 5 optimization
-iterations — Claude handles path/SSH/file tasks directly without
-consulting skills. A CLAUDE.md directive is required for reliable
-activation. Updated README with the required directive and added
-sanitized eval set for future testing.
-
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
