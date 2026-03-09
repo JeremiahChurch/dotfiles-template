@@ -6,6 +6,9 @@ install-burnttoast.cmd
 install-gh.cmd
 README.md
 {{ end }}
+# Never manage .git internals inside skills (they're cloned repos)
+.claude/skills/**/.git/**
+.claude/skills/**/.claude-plugin/**
 {{ if eq .chezmoi.os "windows" }}
 # Windows: skip Linux-specific paths
 .bashrc
