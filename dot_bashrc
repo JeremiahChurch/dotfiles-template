@@ -152,3 +152,6 @@ if ! command -v dockerd &>/dev/null; then
         printf '\033[0;33m[!] Docker is not installed. Run: install-docker\033[0m\n'
     fi
 fi
+
+# npm global packages (no sudo needed)
+export PATH="$HOME/.npm-global/bin:$PATH"
