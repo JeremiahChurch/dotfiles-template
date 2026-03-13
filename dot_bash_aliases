@@ -1,0 +1,3 @@
+# Claude Code aliases
+alias cc='claude'
+alias ccd='claude --dangerously-skip-permissions'
