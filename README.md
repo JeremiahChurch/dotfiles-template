@@ -1,125 +1,120 @@
-# Chezmoi dotfiles
+# Chezmoi + Claude Code + WSL Dotfiles Template
 
-https://www.chezmoi.io/
+A starter dotfiles repo for [chezmoi](https://www.chezmoi.io/) with Claude Code configuration and WSL interop baked in. Fork this and make it yours.
 
-## Quick reference
-
-`chezmoi apply` - apply changes from source to home
-`chezmoi update` - pull from remote + apply
-`chezmoi add <file>` - add a file to chezmoi (auto-commits and pushes)
-
-## What's managed
+## What's included
 
 ### Both platforms
 
 | File | Purpose |
 |------|---------|
 | `.claude/settings.json` | Claude Code account-level permissions, model pref, notification hooks |
+| `.claude/CLAUDE.md` | Global Claude Code instructions (WSL awareness, MCP server management) |
+| `.claude/skills/chezmoi/` | Skill that teaches Claude how to manage dotfiles through chezmoi |
+| `.claude/skills/wsl-interop/` | Skill for WSL path conversion, clickable file URIs, SSH agent interop |
+| `.bash_aliases` | Claude Code shell aliases (`cc`, `ccd`) |
 
 ### Windows only
 
 | File | Purpose |
 |------|---------|
-| `.ssh/config` + public keys | SSH config and keys for 1Password agent |
-| `AppData/Local/1Password/config/ssh/agent.toml` | 1Password SSH agent config |
-| `AppData/Roaming/FileZilla/sitemanager.xml` | FileZilla saved sites |
-| `install-burnttoast.cmd` (run_once) | Installs BurntToast PowerShell module |
+| `install-burnttoast.cmd` (run_once) | Installs BurntToast PowerShell module for toast notifications |
 | `install-gh.cmd` (run_once) | Installs GitHub CLI via winget + prompts `gh auth login` |
 
 ### WSL/Linux only
 
 | File | Purpose |
 |------|---------|
-| `.bashrc` | Canonical bash config — sources `.bashrc.local`, runs `chezmoi update` on startup |
+| `.bashrc` | Bash config — sources `.bashrc.local`, runs `chezmoi update` on startup |
 | `~/.local/bin/install-gh` | Installs GitHub CLI + configures git credential helper + `gh auth login` |
 | `~/.local/bin/install-devcontainer` | Installs devcontainer CLI via npm |
+| `~/.local/bin/install-docker` | Installs Docker Engine natively in WSL (replaces Docker Desktop) |
 
-### NOT managed (manual per machine)
+### NOT managed (create manually per machine)
 
 | File | Purpose | Why not |
 |------|---------|---------|
-| `.bashrc.local` | HASS_TOKEN, SSH aliases, machine-specific env | Contains secrets |
+| `.bashrc.local` | Machine-specific env vars, aliases, secrets | Contains secrets |
+| `.claude/settings.local.json` | Machine-specific Claude Code overrides | Machine-specific |
+| `.ssh/config` | SSH host configurations | Contains infrastructure details |
+| `.ssh/id_*` | SSH private keys | Secrets |
 
-## Setup new machine
+## Setup
 
-### Windows
+### 1. Fork this repo
 
+Click **Fork** on GitHub, or:
+```bash
+gh repo create my-dotfiles --template YOUR_USERNAME/dotfiles --public
+```
+
+### 2. Install chezmoi
+
+**Windows (PowerShell):**
 ```
 winget install twpayne.chezmoi
-chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 ```
 
-The run_once scripts run automatically on first apply:
-- `install-burnttoast.cmd` — installs BurntToast PowerShell module
-- `install-gh.cmd` — installs GitHub CLI and prompts for `gh auth login`
-
-### WSL (on the same machine, or a Linux-only box)
-
+**WSL/Linux:**
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
-chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
 ```
 
-This installs:
-- `~/.bashrc` with `chezmoi update` auto-sync on shell startup
-- `~/.claude/settings.json` with account-level Claude Code settings
-- Install scripts in `~/.local/bin/` (on PATH)
+### 3. Initialize
 
-On first login, `.bashrc` will warn about any missing tools. Run the
-suggested install commands interactively:
+```bash
+chezmoi init --apply https://github.com/YOUR_USERNAME/dotfiles.git
+```
+
+The `run_once` scripts run automatically on first apply:
+- **Windows:** installs BurntToast + GitHub CLI
+- **WSL/Linux:** `.bashrc` will warn about any missing tools on first login
+
+### 4. Install tools (WSL)
+
+On first login, `.bashrc` will prompt you. Run interactively:
 ```bash
 install-gh            # GitHub CLI + git credential helper + gh auth login
 install-devcontainer  # devcontainer CLI via npm
+install-docker        # Docker Engine natively in WSL
 ```
 
-Then create `~/.bashrc.local` manually with machine-specific config:
+### 5. Create `.bashrc.local`
+
+Machine-specific config that should NOT be in version control:
 ```bash
 cat > ~/.bashrc.local << 'EOF'
-# 1Password SSH agent via Windows OpenSSH
+# 1Password SSH agent via Windows OpenSSH (if using 1Password for SSH keys)
 alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 
-# HA
-export HASS_SERVER="https://ha.jeremiah.church"
-export HASS_TOKEN="<token from 1Password or HA>"
+# Example: Home Assistant token
+# export HASS_SERVER="https://your-ha-instance.local:8123"
+# export HASS_TOKEN="<token>"
 EOF
 ```
 
-## Update existing machines
-
-For machines that already have Windows chezmoi but no WSL chezmoi:
-
-```bash
-# 1. Update Windows chezmoi first (picks up new .chezmoiignore, etc.)
-chezmoi.exe update
-
-# 2. Install chezmoi in WSL
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
-
-# 3. Init WSL chezmoi from the same dotfiles repo
-chezmoi init --apply https://github.com/JeremiahChurch/dotfiles.git
-```
-
-After this, `.bashrc` includes the auto-update hook — future changes
-to the dotfiles repo are applied automatically on every new shell.
-
-For machines that already have both Windows and WSL chezmoi:
-
-```bash
-# Just update — pulls latest and applies
-chezmoi update          # in WSL
-chezmoi.exe update      # on Windows side
-```
-
-## Sync behavior
+## How syncing works
 
 Configured in `chezmoi.toml`:
 - **autoCommit**: any `chezmoi add` automatically commits
 - **autoPush**: commits are automatically pushed to origin
 - **pre-hook**: `git pull --ff-only` runs before reading source state
 
-This means: changes made on any machine are pushed immediately, and any machine
-that runs `chezmoi update` (or opens a new WSL shell) pulls the latest first.
+`.bashrc` also runs a sync on every new interactive shell (with a 5-second timeout), so changes made on any machine propagate automatically.
+
+## Adding your own files
+
+```bash
+# Add a new dotfile to chezmoi management
+chezmoi add ~/.gitconfig
+
+# Add a new skill
+chezmoi add ~/.claude/skills/my-skill
+
+# Check what chezmoi manages
+chezmoi managed
+```
 
 ## Claude Code settings architecture
 
@@ -134,3 +129,19 @@ Permissions are split across three levels:
 Account settings contain general dev tools (git, gh, npm, python, etc.).
 Project settings contain project-specific approvals (MCP tools, SSH, domains).
 Local settings contain machine-specific overrides (Windows paths, etc.).
+
+## CRLF handling
+
+The `.gitattributes` forces LF everywhere except Windows scripts (`*.cmd`, `*.bat`, `*.ps1` get CRLF). This prevents shell scripts from breaking in WSL due to `\r` characters.
+
+## Customizing for your setup
+
+Things you'll likely want to add:
+- **`.ssh/config`** — but keep it out of this repo if it has internal IPs/hostnames. Use a separate private repo or manage it manually.
+- **`AppData/` configs** — 1Password SSH agent, FileZilla, etc. Same caveat about secrets.
+- **`.gitconfig`** — safe to add if it doesn't contain tokens
+- **More install scripts** — add to `dot_local/bin/` with the `executable_` prefix
+
+## License
+
+MIT

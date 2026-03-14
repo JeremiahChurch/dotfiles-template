@@ -21,7 +21,7 @@ managed) needs to flow through chezmoi, or it will be lost.
 
 | Setting | Value |
 |---------|-------|
-| Source repo | `~/.local/share/chezmoi/` (git: `JeremiahChurch/dotfiles`) |
+| Source repo | `~/.local/share/chezmoi/` (git: `YOUR_USERNAME/dotfiles`) |
 | Config | `~/.config/chezmoi/chezmoi.toml` |
 | Auto-commit | Yes (`autoCommit = true`) |
 | Auto-push | Yes (`autoPush = true`) |
@@ -109,7 +109,7 @@ chezmoi managed       # list all managed files
 
 ### Applying on a new machine
 ```bash
-chezmoi init --apply JeremiahChurch/dotfiles
+chezmoi init --apply YOUR_USERNAME/dotfiles
 ```
 
 ## CRLF / Line Ending Handling

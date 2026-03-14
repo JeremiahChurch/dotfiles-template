@@ -31,7 +31,6 @@
       "Bash(jq:*)",
       "Bash(ls:*)",
       "Bash(md5sum:*)",
-      "Bash(nmap.exe:*)",
       "Bash(node:*)",
       "Bash(npm:*)",
       "Bash(npx:*)",
@@ -57,9 +56,7 @@
       "Bash(whoami:*)",
       "Bash(xxd:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:maclookup.app)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Read(///mnt/c/Users/jerem/Pictures/Screenpresso/*)",
       "WebSearch"
     ],
     "defaultMode": "acceptEdits"
